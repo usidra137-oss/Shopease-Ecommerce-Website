@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopEase - Modern E-Commerce</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 72px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .logo span {
+            color: #6366f1;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #6366f1;
+        }
+
+        .cart-button {
+            border: none;
+            background: #6366f1;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .cart-button:hover {
+            background: #4f46e5;
+        }
+
+        #cart-count {
+            background: white;
+            color: #6366f1;
+            padding: 2px 7px;
+            border-radius: 50%;
+            margin-left: 5px;
+            font-size: 12px;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 520px;
+            padding: 80px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #eef2ff, #faf5ff);
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .small-title {
+            color: #6366f1;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 54px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        .hero h1 span {
+            color: #6366f1;
+        }
+
+        .hero-description {
+            color: #6b7280;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            background: #6366f1;
+            color: white;
+            text-decoration: none;
+            padding: 14px 27px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .shop-button:hover {
+            background: #4f46e5;
+        }
+
+        .hero-icon {
+            width: 300px;
+            height: 300px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 130px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        /* PRODUCTS */
+        .products-section {
+            padding: 80px 8%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading p {
+            color: #6366f1;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-heading h2 {
+            font-size: 36px;
+            margin-top: 8px;
+        }
+
+        /* CONTROLS */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            gap: 20px;
+        }
+
+        .search-box {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            padding: 11px 15px;
+            width: 300px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 90%;
+            font-size: 14px;
+        }
+
+        .category-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 9px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+
+        /* PRODUCTS GRID */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.09);
+        }
+
+        .product-image {
+            height: 190px;
+            background: #f1f2f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 75px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: #6366f1;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .product-name {
+            font-size: 18px;
+            margin: 7px 0;
+        }
+
+        .product-description {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .product-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .add-button {
+            border: none;
+            background: #111827;
+            color: white;
+            padding: 9px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background: #6366f1;
+        }
+
+        /* ABOUT */
+        .about {
+            padding: 80px 8%;
+            background: #111827;
+            color: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .about h2 {
+            font-size: 40px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .about-description {
+            color: #d1d5db;
+            line-height: 1.8;
+        }
+
+        .about .small-title {
+            color: #a5b4fc;
+        }
+
+        .about-cards {
+            display: grid;
+            gap: 15px;
+        }
+
+        .about-card {
+            background: #1f2937;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .about-card-icon {
+            font-size: 25px;
+        }
+
+        .about-card h3 {
+            margin: 7px 0;
+        }
+
+        .about-card p {
+            color: #d1d5db;
+            font-size: 13px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0b1120;
+            color: #9ca3af;
+            padding: 28px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer .logo {
+            color: white;
+        }
+
+        /* CART OVERLAY */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: none;
+            z-index: 1999;
+        }
+
+        .cart-overlay.active {
+            display: block;
+        }
+
+        /* CART */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 22px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-button {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            background: #f3f4f6;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #9ca3af;
+            margin-top: 80px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-info h4 {
+            font-size: 14px;
+        }
+
+        .cart-item-price {
+            color: #6366f1;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .quantity-controls button {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-button {
+            border: none;
+            background: none;
+            color: #ef4444;
+            cursor: pointer;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .cart-footer {
+            border-top: 1px solid #eee;
+            padding: 22px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .checkout-button {
+            width: 100%;
+            border: none;
+            background: #6366f1;
+            color: white;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .checkout-button:hover {
+            background: #4f46e5;
+        }
+
+        /* NOTIFICATION */
+        .notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #111827;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 8px;
+            z-index: 5000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero-icon {
+                width: 230px;
+                height: 230px;
+                font-size: 100px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 5%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .category-buttons {
+                justify-content: center;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                padding: 60px 5%;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .cart-sidebar {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <div class="logo">
+            <span>Shop</span>Ease
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <button class="cart-button" onclick="openCart()">
+            🛒 Cart
+            <span id="cart-count">0</span>
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="small-title">
+                WELCOME TO SHOPEASE
+            </div>
+
+            <h1>
+                Everything You Need,
+                <span>In One Place.</span>
+            </h1>
+
+            <p class="hero-description">
+                Discover quality products at affordable prices.
+                Shop smarter, faster and easier.
+            </p>
+
+            <a href="#products" class="shop-button">
+                Shop Now →
+            </a>
+
+        </div>
+
+        <div class="hero-icon">
+            🛍️
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+    <section class="products-section" id="products">
+
+        <div class="section-heading">
+
+            <p>OUR COLLECTION</p>
+
+            <h2>Featured Products</h2>
+
+        </div>
+
+
+        <!-- SEARCH AND FILTER -->
+        <div class="controls">
+
+            <div class="search-box">
+                🔍
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search products..."
+                    oninput="searchProducts()"
+                >
+            </div>
+
+            <div class="category-buttons">
+
+                <button
+                    class="category-btn active"
+                    onclick="filterCategory('All', this)">
+                    All
+                </button>
+
+                <button
+                    class="category-btn"
+                    onclick="filterCategory('Fashion', this)">
+                    Fashion
+                </button>
+
+                <button
+                    class="category-btn"
+                    onclick="filterCategory('Electronics', this)">
+                    Electronics
+                </button>
+
+                <button
+                    class="category-btn"
+                    onclick="filterCategory('Home', this)">
+                    Home
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT CARDS -->
+        <div
+            class="product-grid"
+            id="product-grid">
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+
+        <div>
+
+            <div class="small-title">
+                ABOUT SHOPEASE
+            </div>
+
+            <h2>
+                Simple Shopping.<br>
+                Better Experience.
+            </h2>
+
+            <p class="about-description">
+                ShopEase is a modern e-commerce web application
+                designed to make online shopping simple,
+                convenient and enjoyable.
+            </p>
+
+        </div>
+
+
+        <div class="about-cards">
+
+            <div class="about-card">
+                <div class="about-card-icon">🚚</div>
+                <h3>Fast Delivery</h3>
+                <p>Quick and reliable delivery.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-card-icon">🔒</div>
+                <h3>Secure Shopping</h3>
+                <p>Safe and simple shopping experience.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-card-icon">💳</div>
+                <h3>Easy Payment</h3>
+                <p>Convenient checkout experience.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="logo">
+            <span>Shop</span>Ease
+        </div>
+
+        <p>
+            © 2026 ShopEase. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- CART OVERLAY -->
+    <div
+        class="cart-overlay"
+        id="cart-overlay"
+        onclick="closeCart()">
+    </div>
+
+
+    <!-- CART SIDEBAR -->
+    <div
+        class="cart-sidebar"
+        id="cart-sidebar">
+
+        <div class="cart-header">
+
+            <h2>Your Cart</h2>
+
+            <button
+                class="close-button"
+                onclick="closeCart()">
+                ✕
+            </button>
+
+        </div>
+
+
+        <div
+            class="cart-items"
+            id="cart-items">
+        </div>
+
+
+        <div class="cart-footer">
+
+            <div class="total-row">
+
+                <span>Total</span>
+
+                <strong id="cart-total">
+                    ₹0
+                </strong>
+
+            </div>
+
+            <button
+                class="checkout-button"
+                onclick="checkout()">
+                Proceed to Checkout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           PRODUCT DATA
+        ========================= */
+
+        const products = [
+
+            {
+                id: 1,
+                name: "Classic Sneakers",
+                category: "Fashion",
+                price: 2499,
+                emoji: "👟",
+                description: "Comfortable everyday sneakers."
+            },
+
+            {
+                id: 2,
+                name: "Smart Watch",
+                category: "Electronics",
+                price: 3499,
+                emoji: "⌚",
+                description: "Track fitness and notifications."
+            },
+
+            {
+                id: 3,
+                name: "Wireless Headphones",
+                category: "Electronics",
+                price: 1999,
+                emoji: "🎧",
+                description: "Clear sound with wireless freedom."
+            },
+
+            {
+                id: 4,
+                name: "Premium Backpack",
+                category: "Fashion",
+                price: 1599,
+                emoji: "🎒",
+                description: "Stylish backpack for everyday use."
+            },
+
+            {
+                id: 5,
+                name: "Coffee Mug",
+                category: "Home",
+                price: 499,
+                emoji: "☕",
+                description: "Elegant ceramic coffee mug."
+            },
+
+            {
+                id: 6,
+                name: "Desk Lamp",
+                category: "Home",
+                price: 899,
+                emoji: "💡",
+                description: "Modern lamp for your workspace."
+            },
+
+            {
+                id: 7,
+                name: "Running Shoes",
+                category: "Fashion",
+                price: 2899,
+                emoji: "👞",
+                description: "Lightweight active lifestyle shoes."
+            },
+
+            {
+                id: 8,
+                name: "Bluetooth Speaker",
+                category: "Electronics",
+                price: 1799,
+                emoji: "🔊",
+                description: "Portable speaker with powerful sound."
+            }
+
+        ];
+
+
+        /* =========================
+           CART
+        ========================= */
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("shopEaseCart")
+            ) || [];
+
+
+        /* =========================
+           DISPLAY PRODUCTS
+        ========================= */
+
+        function displayProducts(productList) {
+
+            const grid =
+                document.getElementById("product-grid");
+
+            grid.innerHTML = "";
+
+
+            if (productList.length === 0) {
+
+                grid.innerHTML = `
+                    <div style="
+                        grid-column:1/-1;
+                        text-align:center;
+                        padding:50px;
+                    ">
+                        <h3>No products found</h3>
+                        <p>Try another search.</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            productList.forEach(product => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "product-card";
+
+
+                card.innerHTML = `
+
+                    <div class="product-image">
+                        ${product.emoji}
+                    </div>
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            ${product.category}
+                        </span>
+
+                        <h3 class="product-name">
+                            ${product.name}
+                        </h3>
+
+                        <p class="product-description">
+                            ${product.description}
+                        </p>
+
+                        <div class="product-bottom">
+
+                            <span class="product-price">
+                                ₹${product.price.toLocaleString("en-IN")}
+                            </span>
+
+                            <button
+                                class="add-button"
+                                onclick="addToCart(${product.id})">
+                                + Add
+                            </button>
+
+                        </div>
+
+                    </div>
+                `;
+
+
+                grid.appendChild(card);
+
+            });
+
+        }
+
+
+        /* =========================
+           ADD TO CART
+        ========================= */
+
+        function addToCart(productId) {
+
+            const product =
+                products.find(
+                    item => item.id === productId
+                );
+
+
+            const existing =
+                cart.find(
+                    item => item.id === productId
+                );
+
+
+            if (existing) {
+
+                existing.quantity++;
+
+            } else {
+
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+
+            }
+
+
+            saveCart();
+
+            updateCartCount();
+
+            showNotification(
+                product.name + " added to cart!"
+            );
+
+        }
+
+
+        /* =========================
+           SAVE CART
+        ========================= */
+
+        function saveCart() {
+
+            localStorage.setItem(
+                "shopEaseCart",
+                JSON.stringify(cart)
+            );
+
+        }
+
+
+        /* =========================
+           CART COUNT
+        ========================= */
+
+        function updateCartCount() {
+
+            const count =
+                cart.reduce(
+                    (total, item) =>
+                        total + item.quantity,
+                    0
+                );
+
+
+            document.getElementById(
+                "cart-count"
+            ).textContent = count;
+
+        }
+
+
+        /* =========================
+           OPEN CART
+        ========================= */
+
+        function openCart() {
+
+            document
+                .getElementById("cart-sidebar")
+                .classList.add("active");
+
+            document
+                .getElementById("cart-overlay")
+                .classList.add("active");
+
+            displayCart();
+
+        }
+
+
+        /* =========================
+           CLOSE CART
+        ========================= */
+
+        function closeCart() {
+
+            document
+                .getElementById("cart-sidebar")
+                .classList.remove("active");
+
+            document
+                .getElementById("cart-overlay")
+                .classList.remove("active");
+
+        }
+
+
+        /* =========================
+           DISPLAY CART
+        ========================= */
+
+        function displayCart() {
+
+            const container =
+                document.getElementById("cart-items");
+
+            const totalElement =
+                document.getElementById("cart-total");
+
+
+            if (cart.length === 0) {
+
+                container.innerHTML = `
+                    <div class="empty-cart">
+
+                        <div style="font-size:50px;">
+                            🛒
+                        </div>
+
+                        <h3>Your cart is empty</h3>
+
+                        <p>
+                            Add products to get started.
+                        </p>
+
+                    </div>
+                `;
+
+                totalElement.textContent = "₹0";
+
+                return;
+
+            }
+
+
+            container.innerHTML = "";
+
+
+            cart.forEach(item => {
+
+                const element =
+                    document.createElement("div");
+
+                element.className = "cart-item";
+
+
+                element.innerHTML = `
+
+                    <div class="cart-item-image">
+                        ${item.emoji}
+                    </div>
+
+                    <div class="cart-item-info">
+
+                        <h4>
+                            ${item.name}
+                        </h4>
+
+                        <div class="cart-item-price">
+                            ₹${item.price.toLocaleString("en-IN")}
+                        </div>
+
+                        <div class="quantity-controls">
+
+                            <button
+                                onclick="changeQuantity(${item.id}, -1)">
+                                −
+                            </button>
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+                            <button
+                                onclick="changeQuantity(${item.id}, 1)">
+                                +
+                            </button>
+
+                        </div>
+
+                        <button
+                            class="remove-button"
+                            onclick="removeFromCart(${item.id})">
+                            Remove
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(element);
+
+            });
+
+
+            const total =
+                cart.reduce(
+                    (sum, item) =>
+                        sum +
+                        item.price *
+                        item.quantity,
+                    0
+                );
+
+
+            totalElement.textContent =
+                "₹" +
+                total.toLocaleString("en-IN");
+
+        }
+
+
+        /* =========================
+           CHANGE QUANTITY
+        ========================= */
+
+        function changeQuantity(
+            productId,
+            change
+        ) {
+
+            const item =
+                cart.find(
+                    product =>
+                        product.id === productId
+                );
+
+
+            if (!item) return;
+
+
+            item.quantity += change;
+
+
+            if (item.quantity <= 0) {
+
+                cart =
+                    cart.filter(
+                        product =>
+                            product.id !== productId
+                    );
+
+            }
+
+
+            saveCart();
+
+            updateCartCount();
+
+            displayCart();
+
+        }
+
+
+        /* =========================
+           REMOVE ITEM
+        ========================= */
+
+        function removeFromCart(productId) {
+
+            cart =
+                cart.filter(
+                    item =>
+                        item.id !== productId
+                );
+
+
+            saveCart();
+
+            updateCartCount();
+
+            displayCart();
+
+        }
+
+
+        /* =========================
+           CATEGORY FILTER
+        ========================= */
+
+        function filterCategory(
+            category,
+            button
+        ) {
+
+            document
+                .querySelectorAll(".category-btn")
+                .forEach(btn =>
+                    btn.classList.remove("active")
+                );
+
+
+            button.classList.add("active");
+
+
+            if (category === "All") {
+
+                displayProducts(products);
+
+                return;
+
+            }
+
+
+            const filtered =
+                products.filter(
+                    product =>
+                        product.category === category
+                );
+
+
+            displayProducts(filtered);
+
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        function searchProducts() {
+
+            const text =
+                document
+                    .getElementById("search-input")
+                    .value
+                    .toLowerCase();
+
+
+            const filtered =
+                products.filter(product =>
+
+                    product.name
+                        .toLowerCase()
+                        .includes(text)
+
+                    ||
+
+                    product.category
+                        .toLowerCase()
+                        .includes(text)
+
+                    ||
+
+                    product.description
+                        .toLowerCase()
+                        .includes(text)
+
+                );
+
+
+            displayProducts(filtered);
+
+        }
+
+
+        /* =========================
+           CHECKOUT
+        ========================= */
+
+        function checkout() {
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty!"
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "Thank you for shopping with ShopEase! " +
+                "This is a demo checkout."
+            );
+
+        }
+
+
+        /* =========================
+           NOTIFICATION
+        ========================= */
+
+        function showNotification(message) {
+
+            const notification =
+                document.createElement("div");
+
+
+            notification.className =
+                "notification";
+
+
+            notification.textContent =
+                message;
+
+
+            document.body.appendChild(
+                notification
+            );
+
+
+            setTimeout(() => {
+
+                notification.remove();
+
+            }, 2000);
+
+        }
+
+
+        /* =========================
+           INITIALIZE WEBSITE
+        ========================= */
+
+        displayProducts(products);
+
+        updateCartCount();
+
+    </script>
+
+</body>
+</html>
